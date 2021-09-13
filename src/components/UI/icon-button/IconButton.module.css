@@ -1,0 +1,22 @@
+.button svg path {
+  fill: currentColor;
+}
+.button {
+  background: transparent;
+  color: #F2F2F3;
+  border: none;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  cursor: pointer;
+  color: #8585ad;
+}
+.button.active,
+.button:hover {
+  color: #F2F2F3;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+}

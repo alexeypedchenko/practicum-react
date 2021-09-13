@@ -1,0 +1,23 @@
+.item {
+  width: calc(50% - 12px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.image {
+  width: calc(100% - 32px);
+}
+.price {
+  display: flex;
+  align-items: center;
+}
+.name {
+  min-height: 48px;
+}

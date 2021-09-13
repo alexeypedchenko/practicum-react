@@ -1,0 +1,16 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 600px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.icon {
+  cursor: pointer;
+}
