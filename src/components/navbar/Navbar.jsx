@@ -10,7 +10,7 @@ const Navbar = () => {
   ]
   return (
     <nav className={styles.navbar}>
-      {links.map((link, index) =>
+      {links.map((link, index) => (
         <IconButton
           key={link.id}
           icon={link.icon}
@@ -18,7 +18,7 @@ const Navbar = () => {
         >
           {link.name}
         </IconButton>
-      )}
+      ))}
     </nav>
   )
 }

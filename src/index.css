@@ -1,3 +1,7 @@
+:root {
+  --text-primary-color: #F2F2F3;
+}
+
 .container {
   width: 1280px;
   max-width: 100%;

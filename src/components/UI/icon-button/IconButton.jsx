@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import styles from './IconButton.module.css'
 
-const IconButton = ({active, icon, children}) => {
+const IconButton = ({ active, icon, children }) => {
   return (
     <button className={`
-      ${active && styles.active}
+      ${active ? styles.active : ''}
       ${styles.button}
       pl-5 pr-5 pt-4 pb-4
       text text_type_main-default

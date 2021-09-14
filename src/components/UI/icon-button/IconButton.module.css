@@ -3,7 +3,6 @@
 }
 .button {
   background: transparent;
-  color: #F2F2F3;
   border: none;
   border-radius: 40px;
   display: flex;
@@ -14,7 +13,10 @@
 }
 .button.active,
 .button:hover {
-  color: #F2F2F3;
+  color: var(--text-primary-color);
+}
+.button:hover {
+  background: var(--background-element);
 }
 .icon {
   width: 24px;
