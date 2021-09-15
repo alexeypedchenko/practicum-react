@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './IngredientDetails.module.css'
+import {BURGER_INGREDIENT} from '../../../utils/shapes'
 
 const IngredientDetails = ({ details }) => {
   const list = [
@@ -35,7 +36,7 @@ const IngredientDetails = ({ details }) => {
 }
 
 IngredientDetails.propTypes = {
-  details: PropTypes.object.isRequired
+  details: PropTypes.objectOf(BURGER_INGREDIENT.isRequired).isRequired
 }
 
 export default IngredientDetails

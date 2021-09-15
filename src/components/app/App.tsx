@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import AppHeader from '../header/AppHeader'
-import ConstructorPage from '../pages/constructor/ConstructorPage'
+import BurgerIngredients from '../burger-ingredients/BurgerIngredients'
+import BurgerConstructor from '../burger-constructor/BurgerConstructor'
+import styles from './App.module.css'
 
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients'
 
@@ -10,8 +12,14 @@ function App() {
   useEffect(() => {
     try {
       fetch(API_URL)
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.ok) {
+            return response.json()
+          }
+          return Promise.reject(response.status)
+        })
         .then((data) => {setData(data.data)})
+        .catch((err) => {console.log('err:', err)})
     } catch (err) {
       console.log('err:', err)
     }
@@ -20,7 +28,13 @@ function App() {
   return (
     <div className="App">
       <AppHeader />
-      <ConstructorPage data={data} />
+      <main className={`${styles.main} container pb-10`}>
+        <h1 style={{ width: '100%' }} className="mb-5 text text_type_main-large">
+          Соберите бургер
+        </h1>
+        <BurgerIngredients data={data} />
+        <BurgerConstructor data={data} />
+      </main>
     </div>
   );
 }

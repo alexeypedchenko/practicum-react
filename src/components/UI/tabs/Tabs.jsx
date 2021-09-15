@@ -16,7 +16,7 @@ const Tabs = ({ tabs, currentTab, setCurrentTab }) => {
 }
 
 Tabs.propTypes = {
-  tabs: PropTypes.array.isRequired,
+  tabs: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   setCurrentTab: PropTypes.func.isRequired,
   currentTab: PropTypes.string,
 }

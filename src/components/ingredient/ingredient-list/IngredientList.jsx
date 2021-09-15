@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import IngredientItem from '../ingredient-item/IngredientItem'
 import styles from './IngredientList.module.css'
+import {BURGER_INGREDIENT} from '../../../utils/shapes'
 
 const IngredientList = ({ id, title, list }) => {
   return (
@@ -12,7 +13,7 @@ const IngredientList = ({ id, title, list }) => {
       <div className={`${styles.list} pl-4 pr-4`}>
         {list.map((item, index) => (
           <IngredientItem
-            key={item.name}
+            key={item._id}
             item={item}
             count={index % 3 === 0 ? 1 : 0}
           />
@@ -25,7 +26,7 @@ const IngredientList = ({ id, title, list }) => {
 IngredientList.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  list: PropTypes.array.isRequired,
+  list: PropTypes.arrayOf(BURGER_INGREDIENT.isRequired).isRequired,
 }
 
 export default IngredientList

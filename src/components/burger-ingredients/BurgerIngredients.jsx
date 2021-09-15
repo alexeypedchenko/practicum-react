@@ -1,50 +1,62 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import Checkout from '../checkout/Checkout'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import Tabs from '../UI/tabs/Tabs'
+import IngredientList from '../ingredient/ingredient-list/IngredientList'
+import { getGroupedObjectByKey, getTranslate } from '../../utils/utils'
 import styles from './BurgerIngredients.module.css'
+import {BURGER_INGREDIENT} from '../../utils/shapes'
 
 const BurgerIngredients = ({ data }) => {
-  const getPosition = (index, length) => {
-    if (index === 0) {
-      return 'top'
-    }
-    if (index === length - 1) {
-      return 'bottom'
-    }
-    return false
-  }
+  const [currentTab, setCurrentTab] = useState('')
+  const [ingridients, setIngridients] = useState({})
+  const [tabs, setTabs] = useState([])
+  const BurgerIngredientsList = useRef()
+
+  useEffect(() => {
+    const groupData = getGroupedObjectByKey(data, 'type')
+    setIngridients(groupData)
+    setTabs(Object.keys(groupData).map((key) => getTranslate[key]))
+  }, [data])
+
+  useEffect(() => {
+    setCurrentTab(tabs[0])
+  }, [tabs])
+
+  useEffect(() => {
+    if (!currentTab) return
+    const offset = document.getElementById(getTranslate[currentTab]).offsetTop
+    BurgerIngredientsList.current.scrollTo({
+      top: offset,
+      behavior: "smooth"
+    })
+  }, [currentTab])
 
   return (
-    <div>
-      <div className={`${styles.list} custom-scroll mb-10`}>
-        {data.map((item, index) => (
-          <div
-            className={`${styles.item} pr-2`}
-            key={item.name}
-          >
-            {!(index === 0 || index === data.length - 1) &&
-              <div className={`${styles.icon} mr-2`}>
-                <DragIcon type="primary" />
-              </div>
-            }
-            <ConstructorElement
-              type={getPosition(index, data.length)}
-              thumbnail={item.image}
-              text={item.name}
-              price={item.price}
-              isLocked={index % 4 === 0}
-            />
-          </div>
+    <div className={styles.container}>
+      <Tabs
+        tabs={tabs}
+        currentTab={currentTab}
+        setCurrentTab={setCurrentTab}
+      />
+      <div
+        ref={BurgerIngredientsList}
+        className={`${styles.list} custom-scroll mt-10`}
+      >
+        {tabs.map((tab) => (
+          <IngredientList
+            id={getTranslate[tab]}
+            key={tab}
+            title={tab}
+            list={ingridients[getTranslate[tab]]}
+          />
         ))}
       </div>
-      <Checkout />
     </div>
   )
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.arrayOf(BURGER_INGREDIENT.isRequired).isRequired
 }
 
 export default BurgerIngredients

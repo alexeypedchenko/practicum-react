@@ -4,6 +4,7 @@ import IngredientDetails from '../ingredient-details/IngredientDetails'
 import Modal from '../../modal/modal/Modal'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './IngredientItem.module.css'
+import {BURGER_INGREDIENT} from '../../../utils/shapes'
 
 const IngredientItem = ({ item, count }) => {
   const [showModal, setShowModal] = useState(false)
@@ -43,7 +44,7 @@ const IngredientItem = ({ item, count }) => {
 }
 
 IngredientItem.propTypes = {
-  item: PropTypes.object.isRequired,
+  item: PropTypes.objectOf(BURGER_INGREDIENT.isRequired).isRequired,
   count: PropTypes.number.isRequired
 }
 
