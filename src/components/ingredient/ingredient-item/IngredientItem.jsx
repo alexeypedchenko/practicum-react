@@ -44,7 +44,7 @@ const IngredientItem = ({ item, count }) => {
 }
 
 IngredientItem.propTypes = {
-  item: PropTypes.objectOf(BURGER_INGREDIENT.isRequired).isRequired,
+  item: BURGER_INGREDIENT.isRequired,
   count: PropTypes.number.isRequired
 }
 

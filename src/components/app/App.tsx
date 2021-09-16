@@ -10,19 +10,15 @@ function App() {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    try {
-      fetch(API_URL)
-        .then((response) => {
-          if (response.ok) {
-            return response.json()
-          }
-          return Promise.reject(response.status)
-        })
-        .then((data) => {setData(data.data)})
-        .catch((err) => {console.log('err:', err)})
-    } catch (err) {
-      console.log('err:', err)
-    }
+    fetch(API_URL)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        return Promise.reject(response.status)
+      })
+      .then((data) => {setData(data.data)})
+      .catch((err) => {console.log('err:', err)})
   }, [])
 
   return (

@@ -6,7 +6,6 @@ import styles from './BurgerConstructor.module.css'
 import {BURGER_INGREDIENT} from '../../utils/shapes'
 
 const BurgerConstructor = ({ data }) => {
-  console.log('data:', data)
   const [buns, setBuns] = useState([])
   const [ingredients, setIngredients] = useState([])
 
