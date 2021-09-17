@@ -1,0 +1,32 @@
+.item {
+  width: calc(50% - 12px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border-radius: 20px;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.item:not(:nth-last-child(-n+2)) {
+  margin-bottom: 32px;
+}
+.item:hover {
+  background: var(--background-element);
+}
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.image {
+  width: calc(100% - 32px);
+}
+.price {
+  display: flex;
+  align-items: center;
+}
+.name {
+  min-height: 48px;
+}
