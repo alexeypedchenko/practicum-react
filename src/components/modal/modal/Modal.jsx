@@ -7,7 +7,7 @@ import styles from './Modal.module.css'
 
 const modalContainer = document.getElementById('modal')
 
-const Modal = ({ title, children, setVisible, classes }) => {
+const Modal = ({ title, children, close, classes }) => {
   useEffect(() => {
     document.addEventListener('keydown', closeModalByEscape)
     return () => {
@@ -17,7 +17,7 @@ const Modal = ({ title, children, setVisible, classes }) => {
 
   const closeModalByEscape = ({ key }) => {
     if (key === 'Escape') {
-      setVisible(false)
+      close()
     }
   }
 
@@ -30,13 +30,13 @@ const Modal = ({ title, children, setVisible, classes }) => {
               {title}
             </div>
           )}
-          <button className={styles.close} onClick={() => setVisible(false)}>
+          <button className={styles.close} onClick={close}>
             <CloseIcon type="primary" />
           </button>
         </div>
         {children}
       </div>
-      <ModalOverlay setVisible={setVisible} />
+      <ModalOverlay close={close} />
     </div>),
     modalContainer
   )
@@ -45,7 +45,7 @@ const Modal = ({ title, children, setVisible, classes }) => {
 Modal.propTypes = {
   title: PropTypes.string,
   classes: PropTypes.string,
-  setVisible: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
 }
 
 export default Modal

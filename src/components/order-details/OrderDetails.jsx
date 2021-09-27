@@ -2,14 +2,14 @@ import React from 'react'
 import styles from './OrderDetails.module.css'
 import doneImage from '../../images/done.jpg'
 
-const OrderDetails = () => {
+const OrderDetails = ({ details }) => {
   return (
     <div className={`${styles.order} pt-9`}>
       <span className={`${styles.number} text text_type_digits-large mb-8`}>
-        034536
+        {details.order.number}
       </span>
       <span className="text text_type_main-medium mb-15">
-        идентификатор заказа
+        {details.name}
       </span>
       <img className={`${styles.image} mb-15`} src={doneImage} alt="done" />
       <span className="text text_type_main-default mb-2">

@@ -1,0 +1,26 @@
+.preview {
+  padding: 15px 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: var(--common-border-radius-s);
+  background: var(--background-element);
+  max-width: 488px;
+  min-height: 48px;
+  color: #F2F2F3;
+  flex-grow: 1;
+  border: 1px dashed transparent;
+}
+.previewCanDrop {
+  border-color: lime;
+}
+.previewIsOver {
+  background: var(--text-inactive-color);
+}
+.previewTop {
+  border-radius: var(--top-constructor-item-border-radius);
+}
+.previewBottom {
+  border-radius: var(--bottom-constructor-item-border-radius);
+}

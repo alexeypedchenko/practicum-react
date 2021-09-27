@@ -1,45 +1,74 @@
-import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import Tabs from '../UI/tabs/Tabs'
 import IngredientList from '../ingredient/ingredient-list/IngredientList'
-import { getGroupedObjectByKey, getTranslate } from '../../utils/utils'
+import {
+  getGroupedObjectByKey,
+  getTranslate,
+  getVisibleNodeOnScroll,
+  scrollTo
+} from '../../utils/utils'
 import styles from './BurgerIngredients.module.css'
-import {BURGER_INGREDIENT} from '../../utils/shapes'
+// redux
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchIngredients, selectIngredients } from '../../store/slices/ingredientsSlice'
+import { selectBurgerConstructor } from '../../store/slices/burgerConstructorSlice'
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = () => {
   const [currentTab, setCurrentTab] = useState('')
-  const [ingridients, setIngridients] = useState({})
   const [tabs, setTabs] = useState([])
-  const BurgerIngredientsList = useRef()
+  const burgerIngredientsList = useRef()
+
+  const dispatch = useDispatch()
+  const { ingredients } = useSelector(selectIngredients)
+  const { bun, ingredients: constructorIngredients } = useSelector(selectBurgerConstructor)
 
   useEffect(() => {
-    const groupData = getGroupedObjectByKey(data, 'type')
-    setIngridients(groupData)
+    dispatch(fetchIngredients())
+  }, [dispatch])
+
+  const groupedIngredients = useMemo(() => {
+    const groupData = getGroupedObjectByKey(ingredients, 'type')
     setTabs(Object.keys(groupData).map((key) => getTranslate[key]))
-  }, [data])
+    return groupData
+  }, [ingredients])
+
+  const ingredientsCount = useMemo(() => {
+    const list = constructorIngredients.reduce((acc, val) => {
+      acc[val._id] = (acc[val._id] || 0) + 1
+      return acc;
+    }, {})
+    if (bun) {
+      list[bun._id] = 1
+    }
+    return list
+  }, [constructorIngredients, bun])
+
+  const setActiveTabOnScroll = () => {
+    const tabNodes = tabs.map((tab) => ({ name: tab, $el: document.getElementById(getTranslate[tab]) }))
+    const tab = getVisibleNodeOnScroll(tabNodes, burgerIngredientsList.current)
+    setCurrentTab(tab.name)
+  }
+  const showActiveTab = (tab) => {
+    scrollTo(document.getElementById(getTranslate[tab]), burgerIngredientsList.current)
+  }
 
   useEffect(() => {
-    setCurrentTab(tabs[0])
-  }, [tabs])
-
-  useEffect(() => {
-    if (!currentTab) return
-    const offset = document.getElementById(getTranslate[currentTab]).offsetTop
-    BurgerIngredientsList.current.scrollTo({
-      top: offset,
-      behavior: "smooth"
-    })
-  }, [currentTab])
+    const list = burgerIngredientsList.current
+    list.addEventListener('scroll', setActiveTabOnScroll)
+    return () => {
+      list.removeEventListener('scroll', setActiveTabOnScroll)
+    }
+  }, [burgerIngredientsList, tabs])
 
   return (
     <div className={styles.container}>
       <Tabs
         tabs={tabs}
-        currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
+        currentTab={currentTab || tabs[0]}
+        setCurrentTab={showActiveTab}
       />
       <div
-        ref={BurgerIngredientsList}
+        ref={burgerIngredientsList}
         className={`${styles.list} custom-scroll mt-10`}
       >
         {tabs.map((tab) => (
@@ -47,16 +76,13 @@ const BurgerIngredients = ({ data }) => {
             id={getTranslate[tab]}
             key={tab}
             title={tab}
-            list={ingridients[getTranslate[tab]]}
+            count={ingredientsCount}
+            list={groupedIngredients[getTranslate[tab]]}
           />
         ))}
       </div>
     </div>
   )
-}
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(BURGER_INGREDIENT.isRequired).isRequired
 }
 
 export default BurgerIngredients

@@ -1,9 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styles from './IngredientDetails.module.css'
-import {BURGER_INGREDIENT} from '../../../utils/shapes'
+// redux
+import { useSelector } from 'react-redux'
+import { selectDetailIngredient } from '../../../store/slices/detailIngredientSlice'
 
-const IngredientDetails = ({ details }) => {
+const IngredientDetails = () => {
+  const {detailIngredient} = useSelector(selectDetailIngredient)
+
   const list = [
     {id: 0, name: 'Калории,ккал', key: 'calories'},
     {id: 1, name: 'Белки, г', key: 'proteins'},
@@ -12,9 +15,9 @@ const IngredientDetails = ({ details }) => {
   ]
   return (
     <div className={styles.ingredient}>
-      <img className={`${styles.image} mb-4`} src={details.image_large} alt={details.name} />
+      <img className={`${styles.image} mb-4`} src={detailIngredient.image_large} alt={detailIngredient.name} />
       <h3 className="text text_type_main-medium mb-8">
-        {details.name}
+        {detailIngredient.name}
       </h3>
       <ul className={styles.list}>
         {list.map((item) => (
@@ -26,17 +29,13 @@ const IngredientDetails = ({ details }) => {
               {item.name}
             </span>
             <span className="text_type_digits-default">
-              {details[item.key]}
+              {detailIngredient[item.key]}
             </span>
           </li>
         ))}
       </ul>
     </div>
   )
-}
-
-IngredientDetails.propTypes = {
-  details: PropTypes.objectOf(BURGER_INGREDIENT.isRequired).isRequired
 }
 
 export default IngredientDetails
