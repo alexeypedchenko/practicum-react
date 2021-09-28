@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './BurgerConstructorPreview.module.css'
 
-const BurgerConstructorPreview = ({canDrop, isOver, text, type, classes}) => {
+const BurgerConstructorPreview = ({ canDrop, isOver, text, type, classes }) => {
   return (
     <div className={`
       ${styles.preview}

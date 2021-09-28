@@ -8,19 +8,20 @@ import { useDisclosure } from '../../hooks/useDisclosure'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchOrder, selectOrder } from '../../store/slices/orderSlice'
-import { removeAllIngredients } from '../../store/slices/burgerConstructorSlice'
+import { removeAllIngredients, selectBurgerConstructor } from '../../store/slices/burgerConstructorSlice'
 
-const Checkout = ({totalPrice, orderList}) => {
-  const {isOpen, open, close} = useDisclosure(false, {
+const Checkout = ({ totalPrice, orderList }) => {
+  const { isOpen, open, close } = useDisclosure(false, {
     onClose: () => {
       dispatch(removeAllIngredients())
     }
   })
-  const {request, order} = useSelector(selectOrder)
+  const { request, order } = useSelector(selectOrder)
+  const { bun } = useSelector(selectBurgerConstructor)
   const dispatch = useDispatch()
 
   const sendOder = () => {
-    if (orderList.length) dispatch(fetchOrder(orderList))
+    if (orderList.length > 1 && bun) dispatch(fetchOrder(orderList))
   }
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const Checkout = ({totalPrice, orderList}) => {
           close={close}
           classes="pt-15 pb-30"
         >
-          <OrderDetails details={order} />
+          <OrderDetails number={order.order.number} name={order.name} />
         </Modal>
       )}
     </div>

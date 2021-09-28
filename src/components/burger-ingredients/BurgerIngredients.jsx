@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
 import Tabs from '../UI/tabs/Tabs'
 import IngredientList from '../ingredient/ingredient-list/IngredientList'
+import Modal from '../modal/modal/Modal'
+import IngredientDetails from '../ingredient/ingredient-details/IngredientDetails'
+import { useDisclosure } from '../../hooks/useDisclosure'
 import {
   getGroupedObjectByKey,
   getTranslate,
@@ -12,6 +15,7 @@ import styles from './BurgerIngredients.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchIngredients, selectIngredients } from '../../store/slices/ingredientsSlice'
 import { selectBurgerConstructor } from '../../store/slices/burgerConstructorSlice'
+import { removeDetailIngredient, selectDetailIngredient } from '../../store/slices/detailIngredientSlice'
 
 const BurgerIngredients = () => {
   const [currentTab, setCurrentTab] = useState('')
@@ -21,10 +25,21 @@ const BurgerIngredients = () => {
   const dispatch = useDispatch()
   const { ingredients } = useSelector(selectIngredients)
   const { bun, ingredients: constructorIngredients } = useSelector(selectBurgerConstructor)
+  const { detailIngredient } = useSelector(selectDetailIngredient)
+
+  const { isOpen, open, close } = useDisclosure(false, {
+    onClose: () => dispatch(removeDetailIngredient())
+  })
 
   useEffect(() => {
     dispatch(fetchIngredients())
   }, [dispatch])
+
+  useEffect(() => {
+    if (detailIngredient) {
+      open()
+    }
+  }, [detailIngredient])
 
   const groupedIngredients = useMemo(() => {
     const groupData = getGroupedObjectByKey(ingredients, 'type')
@@ -38,7 +53,7 @@ const BurgerIngredients = () => {
       return acc;
     }, {})
     if (bun) {
-      list[bun._id] = 1
+      list[bun._id] = 2
     }
     return list
   }, [constructorIngredients, bun])
@@ -81,6 +96,15 @@ const BurgerIngredients = () => {
           />
         ))}
       </div>
+      {isOpen && (
+        <Modal
+          close={close}
+          title="Детали ингредиента"
+          classes="pt-10 pb-15"
+        >
+          <IngredientDetails />
+        </Modal>
+      )}
     </div>
   )
 }

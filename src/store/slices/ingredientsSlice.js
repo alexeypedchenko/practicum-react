@@ -4,14 +4,13 @@ import { API_URL } from '../../utils/utils'
 export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredientsStatus',
   async () => fetch(API_URL)
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-    return Promise.reject(response.status)
-  })
-  .then((data) => data.data)
-  .catch((err) => err)
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+      return Promise.reject(response.status)
+    })
+    .then((data) => data.data)
 )
 
 export const ingredientsSlice = createSlice({
@@ -35,7 +34,7 @@ export const ingredientsSlice = createSlice({
     [fetchIngredients.rejected]: (state, action) => {
       state.request = false
       state.ingredients = []
-      state.error = action.payload
+      state.error = action.error.message
     },
   }
 })

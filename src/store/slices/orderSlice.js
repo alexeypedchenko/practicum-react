@@ -5,17 +5,16 @@ export const fetchOrder = createAsyncThunk(
   'order/fetchOrderStatus',
   async (order) => fetch(ORDER_URL, {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ingredients: order})
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ingredients: order })
   })
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-    return Promise.reject(response.status)
-  })
-  .then((data) => data)
-  .catch((err) => err)
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+      return Promise.reject(response.status)
+    })
+    .then((data) => data)
 )
 
 const orderSlice = createSlice({
@@ -37,7 +36,7 @@ const orderSlice = createSlice({
     [fetchOrder.rejected]: (state, action) => {
       state.request = false
       state.order = {}
-      state.error = action.payload
+      state.error = action.error.message
     },
   }
 })

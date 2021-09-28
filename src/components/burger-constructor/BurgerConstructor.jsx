@@ -42,6 +42,7 @@ const BurgerConstructor = () => {
       orderList,
     }
   }, [ingredients, bun])
+
   return (
     <div>
       <div className={`${styles.constructor} mb-10`}>

@@ -11,7 +11,7 @@ import { changeItemsPosition } from '../../../store/slices/burgerConstructorSlic
 const BurgerConstructorItem = ({ item, icon, handleClose, isLocked, type, index }) => {
   const dispatch = useDispatch()
   const ref = useRef(null)
-  const [{}, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: 'constructorItem',
     hover(item, monitor) {
       if (!ref.current) return

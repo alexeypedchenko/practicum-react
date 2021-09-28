@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 const detailIngredientSlice = createSlice({
   name: 'detailIngredient',
   initialState: {
-    detailIngredient: {},
+    detailIngredient: null,
   },
   reducers: {
     setDetailIngredient: (state, action) => {
       state.detailIngredient = action.payload
     },
     removeDetailIngredient: (state) => {
-      state.detailIngredient = {}
+      state.detailIngredient = null
     },
   },
 })
