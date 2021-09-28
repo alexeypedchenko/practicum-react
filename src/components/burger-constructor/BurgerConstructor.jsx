@@ -1,69 +1,108 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useMemo } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import Checkout from '../checkout/Checkout'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useDropped } from '../../hooks/useDropped'
+import BurgerConstructorPreview from './burger-constructor-preview/BurgerConstructorPreview'
+import BurgerConstructorItem from './burger-constructor-item/BurgerConstructorItem'
 import styles from './BurgerConstructor.module.css'
-import {BURGER_INGREDIENT} from '../../utils/shapes'
+// redux
+import {
+  removeIngredient,
+  selectBurgerConstructor,
+} from '../../store/slices/burgerConstructorSlice'
 
-const BurgerConstructor = ({ data }) => {
-  const [buns, setBuns] = useState([])
-  const [ingredients, setIngredients] = useState([])
+const BurgerConstructor = () => {
+  const { ingredients, bun } = useSelector(selectBurgerConstructor)
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    setBuns(data.filter((el) => el.type === 'bun'))
-    setIngredients(data.filter((el) => el.type !== 'bun'))
-  }, [data])
+  const {
+    drop: ingredientDrop,
+    canDrop: ingredientCanDrop,
+    isOver: ingredientIsOver,
+  } = useDropped(['main', 'sauce'])
+  const {
+    drop: bunTopDrop,
+    canDrop: bunTopCanDrop,
+    isOver: bunTopIsOver,
+  } = useDropped(['bun'])
+  const {
+    drop: bunBottomDrop,
+    canDrop: bunBottomCanDrop,
+    isOver: bunBottomIsOver,
+  } = useDropped(['bun'])
+
+  const {totalPrice, orderList} = useMemo(()=> {
+    const totalPrice = ingredients.reduce((acc, val) => acc + val.price, 0) + (bun?.price * 2 || 0)
+    const orderList = ingredients.map((ingredient) => ingredient._id)
+    if (bun) {
+      orderList.push(bun._id)
+    }
+    return {
+      totalPrice,
+      orderList,
+    }
+  }, [ingredients, bun])
 
   return (
     <div>
       <div className={`${styles.constructor} mb-10`}>
-        {buns.length && buns[0] && (
-          <div className={`${styles.item} pl-9`}>
-            <ConstructorElement
+        <div ref={bunTopDrop} className="pl-9">
+          {bun ? (
+            <BurgerConstructorItem
               type="top"
-              thumbnail={buns[0].image}
-              text={buns[0].name}
-              price={buns[0].price}
+              item={bun}
               isLocked={true}
             />
-          </div>
-        )}
-        <div className={`${styles.list} custom-scroll`}>
+          ) : (
+            <BurgerConstructorPreview
+              canDrop={bunTopCanDrop}
+              isOver={bunTopIsOver}
+              type="top"
+              text={bunTopCanDrop && bunTopIsOver ? 'Можно бросать 👍' : 'Перетащите булку'}
+            />
+          )}
+        </div>
+
+        <div ref={ingredientDrop} className={`${styles.list} custom-scroll`}>
+          {!ingredients.length && (
+            <BurgerConstructorPreview
+              canDrop={ingredientCanDrop}
+              isOver={ingredientIsOver}
+              text={ingredientCanDrop && ingredientIsOver ? 'Можно бросать 👍' : 'Перетащите ингредиент или соус'}
+              classes="ml-9"
+            />
+          )}
           {ingredients.map((item, index) => (
-            <div
-              className={`${styles.item} pr-2`}
-              key={index}
-            >
-              <div className={`${styles.icon} mr-2`}>
-                <DragIcon type="primary" />
-              </div>
-              <ConstructorElement
-                thumbnail={item.image}
-                text={item.name}
-                price={item.price}
-              />
-            </div>
+            <BurgerConstructorItem
+              key={item.id}
+              item={item}
+              index={index}
+              icon={true}
+              handleClose={() => dispatch(removeIngredient(item.id))}
+            />
           ))}
         </div>
-        {buns.length && buns[1] && (
-          <div className={`${styles.item} pl-9`}>
-            <ConstructorElement
+
+        <div ref={bunBottomDrop} className="pl-9">
+          {bun ? (
+            <BurgerConstructorItem
               type="bottom"
-              thumbnail={buns[1].image}
-              text={buns[1].name}
-              price={buns[1].price}
+              item={bun}
               isLocked={true}
             />
-          </div>
-        )}
+          ) : (
+            <BurgerConstructorPreview
+              canDrop={bunBottomCanDrop}
+              isOver={bunBottomIsOver}
+              type="bottom"
+              text={bunBottomCanDrop && bunBottomIsOver ? 'Можно бросать 👍' : 'Перетащите булку'}
+            />
+          )}
+        </div>
       </div>
-      <Checkout />
+      <Checkout totalPrice={totalPrice} orderList={orderList} />
     </div>
   )
-}
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(BURGER_INGREDIENT.isRequired).isRequired
 }
 
 export default BurgerConstructor

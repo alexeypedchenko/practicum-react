@@ -1,21 +1,46 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import IngredientDetails from '../ingredient-details/IngredientDetails'
-import Modal from '../../modal/modal/Modal'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './IngredientItem.module.css'
-import {BURGER_INGREDIENT} from '../../../utils/shapes'
+import { BURGER_INGREDIENT } from '../../../utils/shapes'
+import { getId } from '../../../utils/utils'
+import { useDragged } from '../../../hooks/useDragged'
+// redux
+import { useDispatch } from 'react-redux'
+import {
+  setDetailIngredient,
+} from '../../../store/slices/detailIngredientSlice'
+import {
+  addIngridient,
+  addBun
+} from '../../../store/slices/burgerConstructorSlice'
 
 const IngredientItem = ({ item, count }) => {
-  const [showModal, setShowModal] = useState(false)
+  const dispatch = useDispatch()
+
+  const showIngredient = () => {
+    dispatch(setDetailIngredient(item))
+  }
+
+  const { isDragging, drag } = useDragged(item, item.type, {
+    onDragEnd: () => {
+      if (item.type === 'bun') {
+        dispatch(addBun({ ...item, id: getId() }))
+        return
+      }
+      dispatch(addIngridient({ ...item, id: getId() }))
+    }
+  })
+
+  const borderColor = isDragging ? 'lime' : ''
 
   return (
-    <div className={styles.item} onClick={() => setShowModal(true)}>
-      {count > 0 &&
+    <div ref={drag} className={styles.item} onClick={showIngredient} style={{ borderColor }}>
+      {count[item._id] && (
         <div className={styles.counter}>
-          <Counter count={1} size="default" />
+          <Counter count={count[item._id]} size="default" />
         </div>
-      }
+      )}
       <img
         className={`${styles.image} mb-1`}
         src={item.image}
@@ -30,22 +55,13 @@ const IngredientItem = ({ item, count }) => {
       <h4 className={`${styles.name} text text_type_main-default`}>
         {item.name}
       </h4>
-      {showModal && (
-        <Modal
-          setVisible={setShowModal}
-          title="Детали ингредиента"
-          classes="pt-10 pb-15"
-        >
-          <IngredientDetails details={item} />
-        </Modal>
-      )}
     </div>
   )
 }
 
 IngredientItem.propTypes = {
   item: BURGER_INGREDIENT.isRequired,
-  count: PropTypes.number.isRequired
+  count: PropTypes.objectOf(PropTypes.number.isRequired),
 }
 
 export default IngredientItem
