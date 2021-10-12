@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.form [class*="input "] {
+  width: 480px;
+}
+.form > *:not(:last-child) {
+  margin-bottom: 24px;
+}
+.info {
+  text-align: center;
+}

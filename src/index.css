@@ -3,8 +3,26 @@
 }
 
 .container {
-  width: 1280px;
+  width: 1360px;
   max-width: 100%;
   margin: 0 auto;
   padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.link {
+  color: var(--colors-interface-accent);
+  transition: var(--common-transition);
+  padding: 0 8px;
+  text-decoration: none;
+}
+.link:hover {
+  color: var(--text-primary-color);
 }

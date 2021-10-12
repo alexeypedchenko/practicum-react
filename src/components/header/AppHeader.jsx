@@ -12,7 +12,7 @@ const AppHeader = () => {
         <div className={styles.logo}>
           <Logo />
         </div>
-        <IconButton icon={<ProfileIcon type="primary" />}>
+        <IconButton icon={<ProfileIcon type="primary" />} path="/profile">
           Личный кабинет
         </IconButton>
       </div>

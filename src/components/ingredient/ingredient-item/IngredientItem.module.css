@@ -9,6 +9,8 @@
   transition: background 0.15s;
   cursor: pointer;
   border: 1px dashed transparent;
+  text-decoration: none;
+  color: var(--text-primary-color);
 }
 .item:not(:nth-last-child(-n+2)) {
   margin-bottom: 32px;

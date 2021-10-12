@@ -7,18 +7,25 @@
   border-radius: 40px;
   display: flex;
   align-items: center;
-  transition: 0.3s;
+  transition: var(--common-transition);
   cursor: pointer;
-  color: #8585ad;
+  color: var(--text-inactive-color);
+  text-decoration: none;
 }
-.button.active,
 .button:hover {
   color: var(--text-primary-color);
-}
-.button:hover {
   background: var(--background-element);
+}
+.button.active {
+  color: var(--text-primary-color);
+  cursor: default;
+  background: transparent;
 }
 .icon {
   width: 24px;
   height: 24px;
+}
+.disabled {
+  opacity: 0.4;
+  pointer-events: none;
 }

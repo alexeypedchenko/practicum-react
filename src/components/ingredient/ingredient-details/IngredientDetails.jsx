@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { fetchIngredients, selectIngredients } from '../../../store/slices/ingredientsSlice'
 import styles from './IngredientDetails.module.css'
-// redux
-import { useSelector } from 'react-redux'
-import { selectDetailIngredient } from '../../../store/slices/detailIngredientSlice'
 
 const IngredientDetails = () => {
-  const {detailIngredient} = useSelector(selectDetailIngredient)
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const { ingredients } = useSelector(selectIngredients)
+  const detailIngredient = ingredients.find((ingredient) => ingredient._id === id)
+
+  useEffect(() => {
+    if (!detailIngredient) {
+      dispatch(fetchIngredients())
+    }
+    // eslint-disable-next-line 
+  }, [])
 
   const list = [
     {id: 0, name: 'Калории,ккал', key: 'calories'},
@@ -13,6 +23,11 @@ const IngredientDetails = () => {
     {id: 2, name: 'Жиры, г', key: 'fat'},
     {id: 3, name: 'Углеводы, г', key: 'carbohydrates'},
   ]
+
+  if (!detailIngredient) {
+    return null
+  }
+
   return (
     <div className={styles.ingredient}>
       <img className={`${styles.image} mb-4`} src={detailIngredient.image_large} alt={detailIngredient.name} />

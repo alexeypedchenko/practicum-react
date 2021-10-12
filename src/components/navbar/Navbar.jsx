@@ -5,8 +5,8 @@ import styles from './Navbar.module.css'
 
 const Navbar = () => {
   const links = [
-    { id: 0, name: 'Конструктор', icon: <BurgerIcon type="primary" /> },
-    { id: 1, name: 'Лента заказов', icon: <ListIcon type="primary" /> },
+    { id: 0, name: 'Конструктор', icon: <BurgerIcon type="primary" />, path: '/', },
+    { id: 1, name: 'Лента заказов', icon: <ListIcon type="primary" />, path: '', },
   ]
   return (
     <nav className={styles.navbar}>
@@ -14,7 +14,7 @@ const Navbar = () => {
         <IconButton
           key={link.id}
           icon={link.icon}
-          active={index === 0 ? true : false}
+          path={link.path}
         >
           {link.name}
         </IconButton>
