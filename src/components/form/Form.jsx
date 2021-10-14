@@ -7,20 +7,21 @@ const Form = ({children, title, button, load, info, onSubmit}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (load) return
+    if (load || (typeof onSubmit !== 'function')) return
     onSubmit()
   }
 
   return (
     <>
-      <form className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+      >
         {title && (<p className="text text_type_main-medium">{title}</p>)}
         {children}
-        {button && (
-          <Button onClick={handleSubmit}>{load ? 'Обрабатываем...' : button}</Button>
-        )}
+        {button && (<Button>{load ? 'Обрабатываем...' : button}</Button>)}
       </form>
-      {info && <div className={`${styles.info} mt-20`}>{info}</div>}
+      {info && (<div className={`${styles.info} mt-20`}>{info}</div>)}
     </>
   )
 }

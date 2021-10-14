@@ -69,14 +69,3 @@ const Pages = () => {
 }
 
 export default Pages
-
-
-// export {
-//   CreateBurger,
-//   Login,
-//   Register,
-//   ForgotPassword,
-//   ResetPassword,
-//   Profile,
-//   Error,
-// }
