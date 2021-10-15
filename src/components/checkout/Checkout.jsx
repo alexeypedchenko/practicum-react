@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Modal from '../modal/modal/Modal'
 import OrderDetails from '../order-details/OrderDetails'
@@ -9,8 +8,13 @@ import { useDisclosure } from '../../hooks/useDisclosure'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchOrder, selectOrder } from '../../store/slices/orderSlice'
 import { removeAllIngredients, selectBurgerConstructor } from '../../store/slices/burgerConstructorSlice'
+import { useAuth } from '../../hooks/useAuth'
+import { useHistory } from 'react-router-dom'
 
 const Checkout = ({ totalPrice, orderList }) => {
+  const history = useHistory()
+
+  const { isAuth } = useAuth()
   const { isOpen, open, close } = useDisclosure(false, {
     onClose: () => {
       dispatch(removeAllIngredients())
@@ -21,14 +25,20 @@ const Checkout = ({ totalPrice, orderList }) => {
   const dispatch = useDispatch()
 
   const sendOder = () => {
-    if (orderList.length > 1 && bun) dispatch(fetchOrder(orderList))
-  }
-
-  useEffect(() => {
-    if (order.success) {
-      open()
+    if (!isAuth) {
+      history.push('/login')
+      return
     }
-  }, [order])
+    if (orderList.length > 1 && bun) {
+      dispatch(fetchOrder({ingredients: orderList}))
+        .unwrap()
+        .then(({success}) => {
+          if (success) {
+            open()
+          }
+        })
+    }
+  }
 
   return (
     <div className={styles.checkout}>

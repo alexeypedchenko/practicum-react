@@ -1,20 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { ORDER_URL } from '../../utils/utils'
+import { fetchWithRefresh, ORDER_URL } from '../../utils/api'
 
 export const fetchOrder = createAsyncThunk(
   'order/fetchOrderStatus',
-  async (order) => fetch(ORDER_URL, {
+  // async (order) => fetchPost(ORDER_URL, order)
+  async (data) => fetchWithRefresh(ORDER_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ingredients: order })
+    body: JSON.stringify(data),
+    headers: {
+      'authorization': localStorage.getItem('accessToken'),
+      'Content-Type': 'application/json'
+    }
   })
-    .then((response) => {
-      if (response.ok) {
-        return response.json()
-      }
-      return Promise.reject(response.status)
-    })
-    .then((data) => data)
 )
 
 const orderSlice = createSlice({

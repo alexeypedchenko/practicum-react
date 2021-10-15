@@ -13,6 +13,7 @@ const Modal = ({ title, children, close, classes }) => {
     return () => {
       document.removeEventListener('keydown', closeModalByEscape)
     }
+    // eslint-disable-next-line
   }, [])
 
   const closeModalByEscape = ({ key }) => {

@@ -1,8 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const API_URL = 'https://norma.nomoreparties.space/api/ingredients'
-export const ORDER_URL = 'https://norma.nomoreparties.space/api/orders'
-
 export const getId = () => {
   return uuidv4()
 }

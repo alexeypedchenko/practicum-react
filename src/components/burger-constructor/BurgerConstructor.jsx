@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import Checkout from '../checkout/Checkout'
 import { useDropped } from '../../hooks/useDropped'
 import BurgerConstructorPreview from './burger-constructor-preview/BurgerConstructorPreview'
@@ -12,8 +13,14 @@ import {
 } from '../../store/slices/burgerConstructorSlice'
 
 const BurgerConstructor = () => {
-  const { ingredients, bun } = useSelector(selectBurgerConstructor)
   const dispatch = useDispatch()
+  const history = useHistory()
+  const { ingredients, bun } = useSelector(selectBurgerConstructor)
+
+  useEffect(() => {
+    history.replace({ state: {} })
+    // eslint-disable-next-line
+  }, [])
 
   const {
     drop: ingredientDrop,
