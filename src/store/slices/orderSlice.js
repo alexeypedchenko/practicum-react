@@ -3,7 +3,6 @@ import { fetchWithRefresh, ORDER_URL } from '../../utils/api'
 
 export const fetchOrder = createAsyncThunk(
   'order/fetchOrderStatus',
-  // async (order) => fetchPost(ORDER_URL, order)
   async (data) => fetchWithRefresh(ORDER_URL, {
     method: 'POST',
     body: JSON.stringify(data),
