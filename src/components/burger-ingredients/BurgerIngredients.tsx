@@ -9,7 +9,7 @@ import {
 } from '../../utils/utils'
 import styles from './BurgerIngredients.module.css'
 // redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from '../../hooks/storeHooks'
 import { fetchIngredients, selectIngredients } from '../../store/slices/ingredientsSlice'
 import { selectBurgerConstructor } from '../../store/slices/burgerConstructorSlice'
 import { IBurgerIngredient, ITabNode } from '../../types/types'
@@ -28,7 +28,7 @@ const BurgerIngredients: FC = () => {
   }, [dispatch])
 
   const groupedIngredients = useMemo(() => {
-    const groupData = getGroupedObjectByKey(ingredients, 'type')
+    const groupData = getGroupedObjectByKey<IBurgerIngredient>(ingredients, 'type')
     setTabs(Object.keys(groupData).map((key) => getTranslate[key]))
     return groupData
   }, [ingredients])

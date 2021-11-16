@@ -3,11 +3,11 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import Form from '../../components/form/Form'
 import { useAuth } from '../../hooks/useAuth'
-import { useDispatch, useSelector } from 'react-redux'
+import { useUnwrapAsyncThunk, useSelector } from '../../hooks/storeHooks'
 import { canResetPassword, selectAuth } from '../../store/slices/authSlice'
 
 const ForgotPassword: FC = () => {
-  const dispatch = useDispatch()
+  const unwrapAsyncThunk = useUnwrapAsyncThunk()
   const history = useHistory()
   const [email, setEmail] = useState('')
   const {request, error} = useSelector(selectAuth)
@@ -20,8 +20,7 @@ const ForgotPassword: FC = () => {
   }
 
   const handleSubmit = () => {
-    // @ts-ignore: Unreachable code error
-    dispatch(canResetPassword({email})).unwrap().then(({success}) => {
+    unwrapAsyncThunk(canResetPassword({email})).then(({success}) => {
       if (success) history.push('/reset-password')
     })
   }

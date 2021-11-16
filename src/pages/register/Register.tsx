@@ -2,7 +2,7 @@ import { FC, useState, ChangeEvent } from 'react'
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect } from 'react-router-dom'
 import Form from '../../components/form/Form'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../hooks/storeHooks'
 import { registerUser, selectAuth } from '../../store/slices/authSlice'
 import { useAuth } from '../../hooks/useAuth'
 import { IInput, IStringObject } from '../../types/types'
@@ -25,7 +25,6 @@ const Register: FC = () => {
       email: values.email,
       password: values.password,
     }
-    // @ts-ignore: Unreachable code error
     dispatch(registerUser(user))
   }
 

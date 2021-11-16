@@ -1,11 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../types/store'
+import { IBurgerIngredient } from '../../types/types'
+
+interface IBurgerConstructor {
+  ingredients: IBurgerIngredient[]
+  bun: IBurgerIngredient | null
+}
+
+const initialState: IBurgerConstructor = {
+  ingredients: [],
+  bun: null,
+}
 
 const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
-  initialState: {
-    ingredients: [],
-    bun: null,
-  },
+  initialState,
   reducers: {
     addBun: (state, action) => {
       state.bun = action.payload
@@ -38,6 +47,6 @@ export const {
   changeItemsPosition,
 } = burgerConstructorSlice.actions
 
-export const selectBurgerConstructor = state => state.burgerConstructor
+export const selectBurgerConstructor = (state: RootState) => state.burgerConstructor
 
 export default burgerConstructorSlice.reducer

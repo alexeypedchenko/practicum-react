@@ -1,0 +1,86 @@
+/* TODO сделать ховер эффект */
+.order {
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  box-sizing: border-box;
+  background: var(--background);
+  text-decoration: none;
+  color: var(--text-primary-color);
+  box-shadow:
+    0px 4px 8px rgba(0, 0, 0, 0.04),
+    0px 0px 2px rgba(0, 0, 0, 0.06),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price {
+  display: flex;
+  align-items: center;
+}
+.images {
+  display: flex;
+}
+.imageWrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.imageWrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(75deg, #801AB2, #4C4CFF);
+  z-index: -2;
+}
+.imageWrap::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border-radius: 50%;
+  background: var(--background);
+  z-index: -1;
+}
+.image {
+  height: 56px;
+  width: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.imageWrap + .imageWrap {
+  margin-left: -20px;
+}
+.count {
+  position: absolute;
+  border-radius: 50px;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  background: rgb(28,28,33, 0.6);
+}

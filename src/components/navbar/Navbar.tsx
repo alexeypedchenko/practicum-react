@@ -7,7 +7,7 @@ import { INavbarLink } from '../../types/types'
 const Navbar: FC = () => {
   const links: INavbarLink[] = [
     { id: 0, name: 'Конструктор', icon: <BurgerIcon type="primary" />, path: '/', },
-    { id: 1, name: 'Лента заказов', icon: <ListIcon type="primary" />, path: '', },
+    { id: 1, name: 'Лента заказов', icon: <ListIcon type="primary" />, path: '/feed', },
   ]
 
   return (

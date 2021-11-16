@@ -18,6 +18,9 @@ import ResetPassword from './reset-password/ResetPassword'
 import Profile from './profile/Profile'
 import Error from './error/Error'
 import Ingredient from './ingredient/Ingredient'
+import Feed from './feed/Feed'
+import FeedInfo from './feed/feed-info/FeedInfo'
+import Orders from './orders/Orders'
 
 const Pages: FC = () => {
   const location = useLocation<ILocation>()
@@ -31,8 +34,14 @@ const Pages: FC = () => {
   return (
     <>
       <Switch location={background || location}>
-        <ProtectedRoute path="/profile">
+        <ProtectedRoute path="/profile" exact={true}>
           <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders" exact={true}>
+          <Orders />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders/:id" exact={true}>
+          <FeedInfo />
         </ProtectedRoute>
         <Route path="/reset-password">
           <ResetPassword />
@@ -52,20 +61,38 @@ const Pages: FC = () => {
         <Route path="/" exact={true}>
           <CreateBurger />
         </Route>
+        <Route path="/feed" exact={true}>
+          <Feed />
+        </Route>
+        <Route path="/feed/:id" exact={true}>
+          <FeedInfo />
+        </Route>
         <Route path="*">
           <Error />
         </Route>
       </Switch>
 
-      {background && <Route path="/ingredients/:id" children={
-        <Modal
-          close={back}
-          title="Детали ингредиента"
-          classes="pt-10 pb-15"
-        >
-          <IngredientDetails />
-        </Modal>
-      } />}
+      {background && (
+        <>
+          <Route path="/ingredients/:id" children={
+            <Modal
+              close={back}
+              title="Детали ингредиента"
+              classes="pt-10 pb-15"
+            >
+              <IngredientDetails />
+            </Modal>
+          }/>
+          <Route path={['/feed/:id', '/profile/orders/:id']} children={
+            <Modal
+              close={back}
+              classes="pt-10 pb-15"
+            >
+              <FeedInfo />
+            </Modal>
+          }/>
+        </>
+      )}
     </>
   )
 }

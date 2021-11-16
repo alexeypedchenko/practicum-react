@@ -3,12 +3,12 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import Form from '../../components/form/Form'
 import { useAuth } from '../../hooks/useAuth'
-import { useDispatch, useSelector } from 'react-redux'
+import { useUnwrapAsyncThunk, useSelector } from '../../hooks/storeHooks'
 import { resetPassword, selectAuth } from '../../store/slices/authSlice'
 import { IInput, IStringObject } from '../../types/types'
 
 const ResetPassword: FC = () => {
-  const dispatch = useDispatch()
+  const unwrapAsyncThunk = useUnwrapAsyncThunk()
   const history = useHistory()
   const [values, setValues] = useState({code: '', password: ''})
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -31,8 +31,7 @@ const ResetPassword: FC = () => {
       password: values.password,
       token: values.code
     }
-    // @ts-ignore: Unreachable code error
-    dispatch(resetPassword(data)).unwrap().then(({success}) => {
+    unwrapAsyncThunk(resetPassword(data)).then(({success}) => {
       if (success) history.push('/login')
     })
   }
@@ -61,7 +60,7 @@ const ResetPassword: FC = () => {
           icon={visiblePassword ? 'HideIcon' : 'ShowIcon'}
           onIconClick={() => setVisiblePassword(!visiblePassword)}
           name="password"
-          error={error}
+          error={!!error}
         />
         <Input
           type="text"
@@ -69,7 +68,7 @@ const ResetPassword: FC = () => {
           placeholder="Введите код из письма"
           onChange={onChange}
           name="code"
-          error={error}
+          error={!!error}
           errorText={error ? error : ''}
         />
       </Form>

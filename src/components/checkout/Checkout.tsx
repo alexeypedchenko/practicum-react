@@ -11,9 +11,11 @@ import { removeAllIngredients, selectBurgerConstructor } from '../../store/slice
 import { useAuth } from '../../hooks/useAuth'
 import { useHistory } from 'react-router-dom'
 import { ICheckoutProps } from '../../types/types'
+import { useUnwrapAsyncThunk } from '../../hooks/storeHooks';
 
 const Checkout: FC<ICheckoutProps> = ({ totalPrice, orderList }) => {
   const history = useHistory()
+  const unwrapAsyncThunk = useUnwrapAsyncThunk()
 
   const { isAuth } = useAuth()
   const { isOpen, open, close } = useDisclosure(false, {
@@ -30,9 +32,9 @@ const Checkout: FC<ICheckoutProps> = ({ totalPrice, orderList }) => {
       history.push('/login')
       return
     }
+
     if (orderList && orderList.length > 1 && bun) {
-      // @ts-ignore: Unreachable code error
-      dispatch(fetchOrder({ingredients: orderList})).unwrap().then(({success}) => {
+      unwrapAsyncThunk(fetchOrder({ingredients: orderList})).then(({success}) => {
         if (success) {
           open()
         }
@@ -61,7 +63,7 @@ const Checkout: FC<ICheckoutProps> = ({ totalPrice, orderList }) => {
           close={close}
           classes="pt-15 pb-30"
         >
-          <OrderDetails number={order.order.number} name={order.name} />
+          <OrderDetails number={order.number} name={order.name} />
         </Modal>
       )}
     </div>
