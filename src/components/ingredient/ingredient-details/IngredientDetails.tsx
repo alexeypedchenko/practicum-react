@@ -1,7 +1,7 @@
-import { FC, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchIngredients, selectIngredients } from '../../../store/slices/ingredientsSlice'
+import { selectIngredients } from '../../../store/slices/ingredientsSlice'
 import styles from './IngredientDetails.module.css'
 import { IBurgerIngredient } from '../../../types/types'
 
@@ -13,16 +13,8 @@ interface IIngredientInfo {
 
 const IngredientDetails: FC = () => {
   const { id }: { id: string} = useParams()
-  const dispatch = useDispatch()
   const { ingredients } = useSelector(selectIngredients)
   const detailIngredient = ingredients.find((ingredient: IBurgerIngredient): boolean => ingredient._id === id)
-
-  useEffect(() => {
-    if (!detailIngredient) {
-      dispatch(fetchIngredients())
-    }
-    // eslint-disable-next-line 
-  }, [])
 
   const list: IIngredientInfo[] = [
     {id: 0, name: 'Калории,ккал', key: 'calories'},

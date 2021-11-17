@@ -1,11 +1,12 @@
 import { FC } from 'react'
-import { useIngredients } from '../../hooks/useIngredients'
+import { useSelector } from '../../hooks/storeHooks'
+import { selectIngredients } from '../../store/slices/ingredientsSlice'
 import { IOrderTapeProps } from '../../types/types'
 import Order from '../order/Order'
 import styles from './OrderTape.module.css'
 
 const OrderTape: FC<IOrderTapeProps> = ({orders}) => {
-  const allIngredients = useIngredients()
+  const { ingredients: allIngredients } = useSelector(selectIngredients)
 
   return (
     <div className={`${styles.tape} custom-scroll`}>

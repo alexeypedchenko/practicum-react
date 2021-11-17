@@ -83,7 +83,7 @@ const Pages: FC = () => {
               <IngredientDetails />
             </Modal>
           }/>
-          <Route path={['/feed/:id', '/profile/orders/:id']} children={
+          <Route path="/feed/:id" children={
             <Modal
               close={back}
               classes="pt-10 pb-15"
@@ -91,6 +91,14 @@ const Pages: FC = () => {
               <FeedInfo />
             </Modal>
           }/>
+          <ProtectedRoute path="/profile/orders/:id">
+            <Modal
+              close={back}
+              classes="pt-10 pb-15"
+            >
+              <FeedInfo />
+            </Modal>
+          </ProtectedRoute>
         </>
       )}
     </>

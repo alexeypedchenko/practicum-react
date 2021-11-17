@@ -4,16 +4,15 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from '../../hooks/storeHooks'
 import { clearOrder, fetchOrderInfo, selectOrder } from '../../store/slices/orderSlice'
-import { useIngredients } from '../../hooks/useIngredients'
 import { IBurgerIngredient } from '../../types/types'
 import { getDate, getTranslate } from '../../utils/utils'
+import { selectIngredients } from '../../store/slices/ingredientsSlice'
 
 const OrderInfo: FC = () => {
-  // TODO сделать очистку перед открытием
   const { id }: { id: string} = useParams()
   const dispatch = useDispatch()
   const { info } = useSelector(selectOrder)
-  const allIngredients = useIngredients()
+  const { ingredients: allIngredients } = useSelector(selectIngredients)
 
   useEffect(() => {
     dispatch(clearOrder())

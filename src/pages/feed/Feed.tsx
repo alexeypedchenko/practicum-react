@@ -4,7 +4,7 @@ import styles from './Feed.module.css'
 import OrderTape from '../../components/order-tape/OrderTape'
 import Scoreboard from '../../components/scoreboard/Scoreboard'
 import { useDispatch } from '../../hooks/storeHooks'
-import { selectLiveOrders, wsConnect } from '../../store/slices/liveOrdersSlice'
+import { selectLiveOrders, wsConnect, wsDisconnect } from '../../store/slices/liveOrdersSlice'
 import { GET_ALL_ORDERS } from '../../utils/api'
 import { useSelector } from 'react-redux'
 import { IOrder } from '../../types/types'
@@ -18,6 +18,9 @@ const Feed: FC = () => {
   useEffect(() => {
     history.replace({ state: {} })
     dispatch(wsConnect(GET_ALL_ORDERS))
+    return () => {
+      dispatch(wsDisconnect())
+    }
   }, [])
 
   const orders = useMemo(() => {

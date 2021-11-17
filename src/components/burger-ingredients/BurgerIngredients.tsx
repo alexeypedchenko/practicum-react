@@ -10,7 +10,7 @@ import {
 import styles from './BurgerIngredients.module.css'
 // redux
 import { useSelector, useDispatch } from '../../hooks/storeHooks'
-import { fetchIngredients, selectIngredients } from '../../store/slices/ingredientsSlice'
+import { selectIngredients } from '../../store/slices/ingredientsSlice'
 import { selectBurgerConstructor } from '../../store/slices/burgerConstructorSlice'
 import { IBurgerIngredient, ITabNode } from '../../types/types'
 
@@ -22,10 +22,6 @@ const BurgerIngredients: FC = () => {
   const dispatch = useDispatch()
   const { ingredients } = useSelector(selectIngredients)
   const { bun, ingredients: constructorIngredients } = useSelector(selectBurgerConstructor)
-
-  useEffect(() => {
-    dispatch(fetchIngredients())
-  }, [dispatch])
 
   const groupedIngredients = useMemo(() => {
     const groupData = getGroupedObjectByKey<IBurgerIngredient>(ingredients, 'type')
