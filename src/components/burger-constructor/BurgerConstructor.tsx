@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from '../../hooks/storeHooks'
 import { useHistory } from 'react-router-dom'
 import Checkout from '../checkout/Checkout'
 import { useDropped } from '../../hooks/useDropped'
@@ -40,8 +40,8 @@ const BurgerConstructor: FC = () => {
   } = useDropped(['bun'])
 
   const {totalPrice, orderList} = useMemo(()=> {
-    const totalPrice = ingredients.reduce((acc: any, val: IBurgerIngredient) => acc + val.price, 0) + (bun?.price * 2 || 0)
-    const orderList = ingredients.map((ingredient: IBurgerIngredient) => ingredient._id)
+    const totalPrice = ingredients.reduce((acc, val) => acc + val.price, 0) + (bun ? bun.price * 2 : 0)
+    const orderList = ingredients.map((ingredient) => ingredient._id)
     if (bun) {
       orderList.push(bun._id)
     }
@@ -80,7 +80,7 @@ const BurgerConstructor: FC = () => {
               classes="ml-9"
             />
           )}
-          {ingredients.map((item: IBurgerIngredient & {id: string}, index: number) => (
+          {ingredients.map((item, index) => (
             <BurgerConstructorItem
               key={item.id}
               item={item}

@@ -1,5 +1,23 @@
 import { Location } from "history";
 
+export interface IOrderTapeProps {
+  orders: IOrder[] | null
+}
+
+export interface IOrder {
+  createdAt: string;
+  ingredients: string[];
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
+}
+
+export interface IOrderProps extends IOrder {
+  allIngredients: Array<IBurgerIngredient>
+}
+
 export interface ITokens {
   refreshToken: string;
   accessToken: string;
@@ -67,7 +85,11 @@ export interface IIngredientItemProps {
   count?: {[key: string]: number},
 }
 
-export interface IBurgerIngredient {
+interface IObjectKeys {
+  [key: string]: string | number;
+}
+
+export interface IBurgerIngredient extends IObjectKeys {
   _id: string;
   name: string;
   type: string;

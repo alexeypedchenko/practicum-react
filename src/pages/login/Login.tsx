@@ -3,7 +3,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect } from 'react-router-dom'
 import Form from '../../components/form/Form'
 import { useAuth } from '../../hooks/useAuth'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../hooks/storeHooks'
 import { authUser, selectAuth } from '../../store/slices/authSlice'
 import { IInput, IStringObject } from '../../types/types'
 
@@ -24,7 +24,6 @@ const Login: FC = () => {
       email: values.email,
       password: values.password,
     }
-    // @ts-ignore: Unreachable code error
     dispatch(authUser(user))
   }
 

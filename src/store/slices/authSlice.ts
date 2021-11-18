@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../types/store'
+import { IStringObject } from '../../types/types'
 
 import {
   AUTH_LOGIN_URL,
@@ -15,36 +17,36 @@ import {
 
 export const registerUser = createAsyncThunk(
  'auth/registerUser',
-  async (user) => fetchDataWithTokens(AUTH_REGISTER_URL, user)
+  async (user: IStringObject) => fetchDataWithTokens(AUTH_REGISTER_URL, user)
 )
 export const authUser = createAsyncThunk(
   'auth/authUser',
-  async (user) => fetchDataWithTokens(AUTH_LOGIN_URL, user)
+  async (user: IStringObject) => fetchDataWithTokens(AUTH_LOGIN_URL, user)
 )
 export const canResetPassword = createAsyncThunk(
   'auth/canResetPassword',
-  async (data) => fetchPost(PASSWORD_FORGOT_URL, data)
+  async (data: IStringObject) => fetchPost(PASSWORD_FORGOT_URL, data) as any
 )
 export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
-  async (data) => fetchPost(PASSWORD_RESET_URL, data)
+  async (data: IStringObject) => fetchPost(PASSWORD_RESET_URL, data) as any
 )
 export const getUser = createAsyncThunk(
   'auth/getUser',
-  async (token) => fetchWithRefresh(GET_USER_URL, {
+  async (token: string) => fetchWithRefresh(GET_USER_URL, {
     headers: {'authorization': token}
   })
-)
+) as any
 export const updateUser = createAsyncThunk(
   'auth/updateUser',
-  async (data) => fetchWithRefresh(PATCH_USER_URL, {
+  async (data: IStringObject) => fetchWithRefresh(PATCH_USER_URL, {
     method: 'PATCH',
     body: JSON.stringify(data),
     headers: {
       'authorization': localStorage.getItem('accessToken'),
       'Content-Type': 'application/json'
     }
-  })
+  }) as any
 )
 export const logout = createAsyncThunk(
   'auth/logout',
@@ -60,120 +62,131 @@ export const logout = createAsyncThunk(
   })
 )
 
-const initialUser = {
-  email: '',
-  name: '',
+interface IAuth {
+  request: boolean,
+  error: string,
+  user: {
+    email: string,
+    name: string,
+  },
+  passwordReset: boolean,
+}
+
+const initialState: IAuth = {
+  request: false,
+  error: '',
+  user: {
+    email: '',
+    name: '',
+  },
+  passwordReset: false,
 }
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    request: false,
-    error: false,
-    user: initialUser,
-    passwordReset: false,
-  },
+  initialState,
+  reducers: {},
   extraReducers: {
     // registerUser
-    [registerUser.pending]: (state) => {
+    [registerUser.pending.type]: (state) => {
       state.request = true
-      state.error = false
+      state.error = ''
     },
-    [registerUser.fulfilled]: (state, action) => {
+    [registerUser.fulfilled.type]: (state, action) => {
       state.request = false
       state.user = action.payload.user
     },
-    [registerUser.rejected]: (state, action) => {
+    [registerUser.rejected.type]: (state, action) => {
       state.request = false
-      state.user = initialUser
+      state.user = {...initialState.user}
       state.error = action.error.message
     },
     // authUser
-    [authUser.pending]: (state) => {
+    [authUser.pending.type]: (state) => {
       state.request = true
-      state.error = false
+      state.error = ''
     },
-    [authUser.fulfilled]: (state, action) => {
+    [authUser.fulfilled.type]: (state, action) => {
       state.request = false
       state.passwordReset = false
       state.user = action.payload.user
     },
-    [authUser.rejected]: (state, action) => {
+    [authUser.rejected.type]: (state, action) => {
       state.request = false
-      state.user = initialUser
+      state.user = {...initialState.user}
       state.error = action.error.message
     },
     // canResetPassword
-    [canResetPassword.pending]: (state) => {
+    [canResetPassword.pending.type]: (state) => {
       state.request = true
-      state.error = false
+      state.error = ''
     },
-    [canResetPassword.fulfilled]: (state, action) => {
+    [canResetPassword.fulfilled.type]: (state, action) => {
       state.request = false
       state.passwordReset = action.payload.success
     },
-    [canResetPassword.rejected]: (state, action) => {
+    [canResetPassword.rejected.type]: (state, action) => {
       state.request = false
       state.error = action.error.message
       state.passwordReset = false
     },
     // resetPassword
-    [resetPassword.pending]: (state) => {
+    [resetPassword.pending.type]: (state) => {
       state.request = true
-      state.error = false
+      state.error = ''
     },
-    [resetPassword.fulfilled]: (state, action) => {
+    [resetPassword.fulfilled.type]: (state, action) => {
       state.request = false
       state.passwordReset = false
     },
-    [resetPassword.rejected]: (state, action) => {
+    [resetPassword.rejected.type]: (state, action) => {
       state.request = false
       state.error = action.error.message
     },
     // getUser
-    [getUser.pending]: (state) => {
+    [getUser.pending.type]: (state) => {
       state.request = true
-      state.error = false
+      state.error = ''
     },
-    [getUser.fulfilled]: (state, action) => {
+    [getUser.fulfilled.type]: (state, action) => {
       state.request = false
       state.passwordReset = false
       state.user = action.payload.user
     },
-    [getUser.rejected]: (state) => {
+    [getUser.rejected.type]: (state) => {
       state.request = false
-      state.user = initialUser
+      state.user = {...initialState.user}
     },
     // updateUser
-    [updateUser.pending]: (state) => {
+    [updateUser.pending.type]: (state) => {
       state.request = true
-      state.error = false
+      state.error = ''
     },
-    [updateUser.fulfilled]: (state, action) => {
+    [updateUser.fulfilled.type]: (state, action) => {
       state.request = false
       state.user = action.payload.user
     },
-    [updateUser.rejected]: (state, action) => {
+    [updateUser.rejected.type]: (state, action) => {
       state.request = false
       state.error = action.error.message
-      state.user = initialUser
+      state.user = {...initialState.user}
     },
     // logout
-    [logout.pending]: (state) => {
+    [logout.pending.type]: (state) => {
       state.request = true
-      state.error = false
+      state.error = ''
     },
-    [logout.fulfilled]: (state) => {
+    [logout.fulfilled.type]: (state) => {
       state.request = false
-      state.user = initialUser
+      state.user = {...initialState.user}
     },
-    [logout.rejected]: (state, action) => {
+    [logout.rejected.type]: (state, action) => {
       state.request = false
       state.error = action.error.message
     },
   }
 })
 
-export const selectAuth = state => state.auth
+export const selectAuth = (state: RootState) => state.auth
 
 export default authSlice.reducer

@@ -1,11 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
+import { formatRelative } from 'date-fns'
+import { ru } from 'date-fns/locale'
 import { IStringObject, ITabNode } from '../types/types'
 
 export const getId = () => {
   return uuidv4()
 }
 
-export const getGroupedObjectByKey = (arr: [], key: string) => {
+export const getDate = (date: string): string => {
+  return formatRelative(new Date(date), new Date(), { locale: ru })
+}
+
+export const getGroupedObjectByKey = <T>(arr: T[], key: string) => {
   return arr.reduce((acc: any, val: any) => {
     (acc[val[key]] || (acc[val[key]] = [])).push(val)
     return acc
@@ -19,6 +25,12 @@ export const getTranslate: IStringObject = {
   'bun': 'Булки',
   'main': 'Начинки',
   'sauce': 'Соусы',
+  'created': 'Создан',
+  'pending': 'Готовится',
+  'done': 'Выполнен',
+  '_created': 'Создан:',
+  '_pending': 'В работе:',
+  '_done': 'Готовы:',
 }
 
 export const scrollTo = (element: HTMLElement, container: HTMLElement) => {

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from './storeHooks'
 import { useLocation } from 'react-router-dom'
 import { getUser, selectAuth } from '../store/slices/authSlice'
 
@@ -19,7 +19,6 @@ export const useAuth = () => {
     const refreshToken: string | null = localStorage.getItem('refreshToken')
     const accessToken: string | null = localStorage.getItem('accessToken')
     if (refreshToken && accessToken) {
-      // @ts-ignore: Unreachable code error
       dispatch(getUser(accessToken))
     }
     // eslint-disable-next-line

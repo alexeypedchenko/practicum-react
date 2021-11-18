@@ -14,6 +14,9 @@ export const PASSWORD_RESET_URL: string = `${API_URL}/password-reset/reset`
 // USER
 export const GET_USER_URL: string = `${API_URL}/auth/user`
 export const PATCH_USER_URL: string = `${API_URL}/auth/user`
+// ORDERS
+export const GET_ALL_ORDERS: string = 'wss://norma.nomoreparties.space/orders/all'
+export const GET_USER_ORDERS: string = 'wss://norma.nomoreparties.space/orders?token='
 
 export const checkReponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
@@ -24,7 +27,7 @@ export const refreshToken = <T>() => fetch(AUTH_TOKEN_URL, {
   body: JSON.stringify({token: localStorage.getItem('refreshToken')}),
 }).then((res) => checkReponse<T>(res))
 
-export const fetchDataWithTokens = (url: string, data: {}) => fetch(url, {
+export const fetchDataWithTokens = <T>(url: string, data: T) => fetch(url, {
   method: 'POST',
   body: JSON.stringify(data),
   headers: {'Content-Type': 'application/json'}
@@ -38,7 +41,7 @@ export const fetchDataWithTokens = (url: string, data: {}) => fetch(url, {
   return data
 })
 
-export const fetchPost = (url: string, data: {}) => fetch(url, {
+export const fetchPost = <T>(url: string, data: T) => fetch(url, {
   method: 'POST',
   body: JSON.stringify(data),
   headers: {'Content-Type': 'application/json'}
