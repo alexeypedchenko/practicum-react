@@ -10,8 +10,8 @@ import {
 import styles from './BurgerIngredients.module.css'
 // redux
 import { useSelector, useDispatch } from '../../hooks/storeHooks'
-import { selectIngredients } from '../../store/slices/ingredientsSlice'
-import { selectBurgerConstructor } from '../../store/slices/burgerConstructorSlice'
+import { selectIngredients } from '../../store/slices/ingredients/ingredientsSlice'
+import { selectBurgerConstructor } from '../../store/slices/burger-constructor/burgerConstructorSlice'
 import { IBurgerIngredient, ITabNode } from '../../types/types'
 
 const BurgerIngredients: FC = () => {

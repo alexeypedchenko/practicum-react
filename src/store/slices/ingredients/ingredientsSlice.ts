@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { RootState } from '../../types/store'
-import { IBurgerIngredient } from '../../types/types'
-import { INGREDIENTS_URL, checkReponse } from '../../utils/api'
+import { RootState } from '../../../types/store'
+import { IBurgerIngredient } from '../../../types/types'
+import { INGREDIENTS_URL, checkReponse } from '../../../utils/api'
 
 export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredientsStatus',

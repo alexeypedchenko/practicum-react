@@ -4,7 +4,7 @@ import Form from '../../components/form/Form'
 import Sidebar from '../../components/sidebar/Sidebar'
 import styles from './Profile.module.css'
 import { useUnwrapAsyncThunk, useSelector } from '../../hooks/storeHooks'
-import { updateUser, selectAuth } from '../../store/slices/authSlice'
+import { updateUser, selectAuth } from '../../store/slices/auth/authSlice'
 import { IInput } from '../../types/types'
 
 const Profile: FC = () => {

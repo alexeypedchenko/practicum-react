@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { RootState } from '../../types/store'
-import { IStringObject } from '../../types/types'
+import { RootState } from '../../../types/store'
+import { IStringObject } from '../../../types/types'
 
 import {
   AUTH_LOGIN_URL,
@@ -13,7 +13,7 @@ import {
   fetchDataWithTokens,
   fetchPost,
   fetchWithRefresh,
-} from '../../utils/api'
+} from '../../../utils/api'
 
 export const registerUser = createAsyncThunk(
  'auth/registerUser',

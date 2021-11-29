@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
-import { selectAuth } from '../../store/slices/authSlice'
+import { selectAuth } from '../../store/slices/auth/authSlice'
 import { IProtectedRouteProps } from '../../types/types'
 
 const ProtectedRoute: FC<IProtectedRouteProps> = ({ children, ...rest }) => {

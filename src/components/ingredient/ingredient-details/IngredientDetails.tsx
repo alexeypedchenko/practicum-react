@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { selectIngredients } from '../../../store/slices/ingredientsSlice'
+import { selectIngredients } from '../../../store/slices/ingredients/ingredientsSlice'
 import styles from './IngredientDetails.module.css'
 import { IBurgerIngredient } from '../../../types/types'
 

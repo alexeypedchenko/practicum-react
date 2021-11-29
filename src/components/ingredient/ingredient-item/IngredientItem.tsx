@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import {
   addIngridient,
   addBun
-} from '../../../store/slices/burgerConstructorSlice'
+} from '../../../store/slices/burger-constructor/burgerConstructorSlice'
 import { IIngredientItemProps } from '../../../types/types'
 
 const IngredientItem: FC<IIngredientItemProps> = ({ item, count }) => {
@@ -37,6 +37,7 @@ const IngredientItem: FC<IIngredientItemProps> = ({ item, count }) => {
       ref={drag}
       className={styles.item}
       style={{ borderColor }}
+      data-test={`ingredient-item-${item.type}`}
     >
       {count?.[item._id] && (
         <div className={styles.counter}>

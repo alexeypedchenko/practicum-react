@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { RootState } from '../../types/store'
+import { RootState } from '../../../types/store'
 import { createAction } from '@reduxjs/toolkit';
-import { IOrder } from '../../types/types';
+import { IOrder } from '../../../types/types';
 
-enum WebsocketStatus {
+export enum WebsocketStatus {
   CONNECTING = 'CONNECTING...',
   ONLINE = 'ONLINE',
   OFFLINE = 'OFFLINE'

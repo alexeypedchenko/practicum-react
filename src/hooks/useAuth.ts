@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from './storeHooks'
 import { useLocation } from 'react-router-dom'
-import { getUser, selectAuth } from '../store/slices/authSlice'
+import { getUser, selectAuth } from '../store/slices/auth/authSlice'
 
 interface ILocation {
   state?: Location & {

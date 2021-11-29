@@ -4,7 +4,7 @@ import { Link, Redirect, useHistory } from 'react-router-dom'
 import Form from '../../components/form/Form'
 import { useAuth } from '../../hooks/useAuth'
 import { useUnwrapAsyncThunk, useSelector } from '../../hooks/storeHooks'
-import { resetPassword, selectAuth } from '../../store/slices/authSlice'
+import { resetPassword, selectAuth } from '../../store/slices/auth/authSlice'
 import { IInput, IStringObject } from '../../types/types'
 
 const ResetPassword: FC = () => {

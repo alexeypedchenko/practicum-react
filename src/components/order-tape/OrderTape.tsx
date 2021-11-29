@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useSelector } from '../../hooks/storeHooks'
-import { selectIngredients } from '../../store/slices/ingredientsSlice'
+import { selectIngredients } from '../../store/slices/ingredients/ingredientsSlice'
 import { IOrderTapeProps } from '../../types/types'
 import Order from '../order/Order'
 import styles from './OrderTape.module.css'

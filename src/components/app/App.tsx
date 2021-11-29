@@ -5,7 +5,7 @@ import AppHeader from '../header/AppHeader'
 import styles from './App.module.css'
 import Pages from '../../pages/Pages'
 import { useEffect } from 'react'
-import { fetchIngredients } from '../../store/slices/ingredientsSlice'
+import { fetchIngredients } from '../../store/slices/ingredients/ingredientsSlice'
 import { useDispatch } from '../../hooks/storeHooks'
 
 function App() {
