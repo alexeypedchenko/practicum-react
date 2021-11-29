@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# Practicum React
+Посмотреть проект по ссылке: [github.io/practicum-react](https://alexeypedchenko.github.io/practicum-react/)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
