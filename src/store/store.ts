@@ -1,10 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { socketMiddleware } from './middleware/socket-middleware';
 // slices
-import ingredientsSlice from './slices/ingredientsSlice'
-import burgerConstructorSlice from './slices/burgerConstructorSlice';
-import orderSlice from './slices/orderSlice';
-import authSlice from './slices/authSlice'
+import ingredientsSlice from './slices/ingredients/ingredientsSlice'
+import burgerConstructorSlice from './slices/burger-constructor/burgerConstructorSlice';
+import orderSlice from './slices/order/orderSlice';
+import authSlice from './slices/auth/authSlice'
 import liveOrdersSlice, {
   wsConnect,
   wsDisconnect,
@@ -13,7 +13,7 @@ import liveOrdersSlice, {
   wsClose,
   wsError,
   wsMessage,
-} from './slices/liveOrdersSlice'
+} from './slices/live-orders/liveOrdersSlice'
 const wsActions = {
   wsConnect,
   wsDisconnect,

@@ -3,7 +3,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect } from 'react-router-dom'
 import Form from '../../components/form/Form'
 import { useDispatch, useSelector } from '../../hooks/storeHooks'
-import { registerUser, selectAuth } from '../../store/slices/authSlice'
+import { registerUser, selectAuth } from '../../store/slices/auth/authSlice'
 import { useAuth } from '../../hooks/useAuth'
 import { IInput, IStringObject } from '../../types/types'
 

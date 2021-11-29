@@ -4,7 +4,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { useDrag, useDrop, XYCoord } from 'react-dnd'
 // redux
 import { useDispatch } from 'react-redux'
-import { changeItemsPosition } from '../../../store/slices/burgerConstructorSlice'
+import { changeItemsPosition } from '../../../store/slices/burger-constructor/burgerConstructorSlice'
 import { IBurgerConstructorItemProps, IBurgerIngredient } from '../../../types/types'
 
 const BurgerConstructorItem: FC<IBurgerConstructorItemProps> = ({ item, icon, handleClose, isLocked, type, index }) => {

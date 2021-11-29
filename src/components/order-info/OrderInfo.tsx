@@ -3,10 +3,10 @@ import styles from './OrderInfo.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from '../../hooks/storeHooks'
-import { clearOrder, fetchOrderInfo, selectOrder } from '../../store/slices/orderSlice'
+import { clearOrder, fetchOrderInfo, selectOrder } from '../../store/slices/order/orderSlice'
 import { IBurgerIngredient } from '../../types/types'
 import { getDate, getTranslate } from '../../utils/utils'
-import { selectIngredients } from '../../store/slices/ingredientsSlice'
+import { selectIngredients } from '../../store/slices/ingredients/ingredientsSlice'
 
 const OrderInfo: FC = () => {
   const { id }: { id: string} = useParams()

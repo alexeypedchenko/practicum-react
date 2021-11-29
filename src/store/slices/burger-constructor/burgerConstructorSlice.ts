@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { RootState } from '../../types/store'
-import { IBurgerIngredient } from '../../types/types'
+import { RootState } from '../../../types/store'
+import { IBurgerIngredient } from '../../../types/types'
 
 interface IBurgerConstructor {
   ingredients: IBurgerIngredient[]

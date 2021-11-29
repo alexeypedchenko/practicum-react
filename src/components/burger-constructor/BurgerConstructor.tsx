@@ -10,7 +10,7 @@ import styles from './BurgerConstructor.module.css'
 import {
   removeIngredient,
   selectBurgerConstructor,
-} from '../../store/slices/burgerConstructorSlice'
+} from '../../store/slices/burger-constructor/burgerConstructorSlice'
 import { IBurgerIngredient } from '../../types/types'
 
 const BurgerConstructor: FC = () => {

@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { useDispatch } from '../../hooks/storeHooks'
 import { NavLink } from 'react-router-dom'
 import styles from './Sidebar.module.css'
-import { logout } from '../../store/slices/authSlice'
+import { logout } from '../../store/slices/auth/authSlice'
 
 const ProfileNav: FC = () => {
   const dispatch = useDispatch()

@@ -5,6 +5,7 @@ import { IBurgerConstructorPreviewProps } from '../../../types/types'
 const BurgerConstructorPreview: FC<IBurgerConstructorPreviewProps> = ({ canDrop, isOver, text, type, classes }) => {
   return (
     <div className={`
+      burger-constructor-preview
       ${styles.preview}
       ${type === 'top' ? styles.previewTop : type === 'bottom' ? styles.previewBottom : ''}
       ${canDrop ? styles.previewCanDrop : ''}

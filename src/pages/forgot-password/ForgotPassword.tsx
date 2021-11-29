@@ -4,7 +4,7 @@ import { Link, Redirect, useHistory } from 'react-router-dom'
 import Form from '../../components/form/Form'
 import { useAuth } from '../../hooks/useAuth'
 import { useUnwrapAsyncThunk, useSelector } from '../../hooks/storeHooks'
-import { canResetPassword, selectAuth } from '../../store/slices/authSlice'
+import { canResetPassword, selectAuth } from '../../store/slices/auth/authSlice'
 
 const ForgotPassword: FC = () => {
   const unwrapAsyncThunk = useUnwrapAsyncThunk()

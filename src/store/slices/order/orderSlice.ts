@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { checkReponse, fetchWithRefresh, ORDER_URL } from '../../utils/api'
-import { RootState } from '../../types/store'
-import { IOrder } from '../../types/types'
+import { checkReponse, fetchWithRefresh, ORDER_URL } from '../../../utils/api'
+import { RootState } from '../../../types/store'
+import { IOrder } from '../../../types/types'
 
 export const fetchOrder = createAsyncThunk(
   'order/fetchOrderStatus',
