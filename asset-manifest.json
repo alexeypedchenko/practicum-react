@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/practicum-react/static/css/main.5978a7bc.chunk.css",
-    "main.js": "/practicum-react/static/js/main.58a5f252.chunk.js",
-    "main.js.map": "/practicum-react/static/js/main.58a5f252.chunk.js.map",
+    "main.js": "/practicum-react/static/js/main.a0e57100.chunk.js",
+    "main.js.map": "/practicum-react/static/js/main.a0e57100.chunk.js.map",
     "runtime-main.js": "/practicum-react/static/js/runtime-main.df705497.js",
     "runtime-main.js.map": "/practicum-react/static/js/runtime-main.df705497.js.map",
     "static/css/2.dd94e44b.chunk.css": "/practicum-react/static/css/2.dd94e44b.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.dd94e44b.chunk.css",
     "static/js/2.00beb5fc.chunk.js",
     "static/css/main.5978a7bc.chunk.css",
-    "static/js/main.58a5f252.chunk.js"
+    "static/js/main.a0e57100.chunk.js"
   ]
 }
